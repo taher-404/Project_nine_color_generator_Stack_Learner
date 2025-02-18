@@ -9,13 +9,47 @@ let toastContainer = null;
 const defaultColor = {
   red: 221,
   green: 222,
-  blue: 238
-}
+  blue: 238,
+};
+
+const defaultPresetColors = [
+  "#ffcdd2",
+  "#f8bbd0",
+  "#e1bee7",
+  "#ff8a80",
+  "#ff8aab",
+  "#ea80fc",
+  "#b39ddb",
+  "#9fa81d",
+  "#9fa8da",
+  "#b388ff",
+  "#8c9eff",
+  "#82b1ff",
+  "#03a9bf",
+  "#03a9fe",
+  "#00bc4d",
+  "#00bcd4",
+  "#009688",
+  "#80d8ff",
+  "#84ffff",
+  "#a7ffeb",
+  "#97A436",
+  "#83ABFF",
+  "#BA6ADF",
+  "#7EB5A8",
+];
+
+const copySound = new Audio('./sound/copy_sound2.mp3')
 
 // onload handler
 window.onload = () => {
   main();
-  updateColorCodeToDom(defaultColor)
+  updateColorCodeToDom(defaultColor);
+  // display preset colors
+  displayColorBoxes(
+    document.getElementById("preset_colors"),
+    defaultPresetColors
+  );
 };
 
 // main or boot function, this function will take care of getting all the DOM references
@@ -29,7 +63,7 @@ function main() {
   const colorSliderGreen = document.getElementById("color_slider_green");
   const colorSliderBlue = document.getElementById("color_slider_blue");
   const copyToClipboardButton = document.getElementById("copy_to_clipboard");
-  
+  const presetColorParent = document.getElementById("preset_colors")
 
   // Event Listeners
   generateRandomColorBtn.addEventListener(
@@ -49,15 +83,17 @@ function main() {
     "change",
     handleColorSlider(colorSliderRed, colorSliderGreen, colorSliderBlue)
   );
-
   copyToClipboardButton.addEventListener("click", handleCopyToClipboard);
-
+  presetColorParent.addEventListener('click', handlePresetColorParent)
 }
 
 // event handlers
 function handleGenerateRandomColorBtn() {
   let color = generateColorDecimal();
   updateColorCodeToDom(color);
+  const mouseSound = new Audio('./sound/mouse-click.mp3')
+  mouseSound.volume = 0.2
+  mouseSound.play()
 }
 
 function handleInputHex(e) {
@@ -67,10 +103,6 @@ function handleInputHex(e) {
     if (isHexValid(hexColor)) {
       const color = hexToDecimalColor(hexColor);
       updateColorCodeToDom(color);
-    }else{
-     
-  
-      generateToastMsg(`Warning! `)
     }
   }
 }
@@ -89,33 +121,42 @@ function handleColorSlider(colorSliderRed, colorSliderGreen, colorSliderBlue) {
 function handleCopyToClipboard() {
   const colorModeRadios = document.getElementsByName("color_mode");
   const mode = getCheckedValuesFromRadios(colorModeRadios);
-  if(mode === null){
-    throw new Error('Invalid Radio Input')
+  if (mode === null) {
+    throw new Error("Invalid Radio Input");
   }
   if (toastContainer !== null) {
-        toastContainer.remove();
-        toastContainer = null;
-      }
-  
-  let color = ''
-  if(mode === 'hex'){
-    color = document.getElementById("input_hex").value
-    if(color && isHexValid(color)){
+    toastContainer.remove();
+    toastContainer = null;
+  }
+
+  let color = "";
+  if (mode === "hex") {
+    color = document.getElementById("input_hex").value;
+    if (color && isHexValid(color)) {
       window.navigator.clipboard.writeText(color);
-      generateToastMsg(`#${color} copied`)
-    } else{
+      generateToastMsg(`#${color} copied`);
+    } else {
       alert("Invalid Color Code");
     }
-  } else{
-    color = document.getElementById("input_rgb").value
-    if(color) {
+  } else {
+    color = document.getElementById("input_rgb").value;
+    if (color) {
       window.navigator.clipboard.writeText(color);
-      generateToastMsg(`${color} copied`)
-    } else{
+      generateToastMsg(`${color} copied`);
+    } else {
       alert("Invalid RGB Color Code");
     }
   }
+  copySound.play()
   console.log(color);
+}
+
+function handlePresetColorParent (event){
+  const child = event.target
+  if(child.className === 'color_box'){
+    window.navigator.clipboard.writeText(child.getAttribute('data_color'))
+    copySound.play()
+  }
 }
 
 // DOM functions
@@ -176,6 +217,32 @@ function updateColorCodeToDom(color) {
   document.getElementById("color_slider_green").value = color.green;
   document.getElementById("color_slider_blue_label").innerText = color.blue;
   document.getElementById("color_slider_blue").value = color.blue;
+}
+
+/**
+ * create a div element with class name of color_box
+ * @param {*} color
+ * @returns {object}
+ */
+function generateColorBox(color) {
+  const div = document.createElement("div");
+  div.className = "color_box";
+  div.style.backgroundColor = color;
+  div.setAttribute("data_color", color);
+
+  return div;
+}
+
+/**
+ * this function will create
+ * @param {object} parent
+ * @param {Array} colors
+ */
+function displayColorBoxes(parent, colors) {
+  colors.forEach((color) => {
+    const colorBox = generateColorBox(color);
+    parent.appendChild(colorBox);
+  });
 }
 
 // utils
