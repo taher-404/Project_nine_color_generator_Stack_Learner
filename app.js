@@ -38,8 +38,9 @@ const defaultPresetColors = [
   "#BA6ADF",
   "#7EB5A8",
 ];
+const customColors = [];
 
-const copySound = new Audio('./sound/copy_sound2.mp3')
+const copySound = new Audio("./sound/copy_sound2.mp3");
 
 // onload handler
 window.onload = () => {
@@ -63,7 +64,9 @@ function main() {
   const colorSliderGreen = document.getElementById("color_slider_green");
   const colorSliderBlue = document.getElementById("color_slider_blue");
   const copyToClipboardButton = document.getElementById("copy_to_clipboard");
-  const presetColorParent = document.getElementById("preset_colors")
+  const saveToCustomBtn = document.getElementById("save_to_custom");
+  const presetColorParent = document.getElementById("preset_colors");
+  const customColorParent = document.getElementById("custom_colors");
 
   // Event Listeners
   generateRandomColorBtn.addEventListener(
@@ -84,16 +87,22 @@ function main() {
     handleColorSlider(colorSliderRed, colorSliderGreen, colorSliderBlue)
   );
   copyToClipboardButton.addEventListener("click", handleCopyToClipboard);
-  presetColorParent.addEventListener('click', handlePresetColorParent)
+  presetColorParent.addEventListener("click", handlePresetColorParent);
+  saveToCustomBtn.addEventListener(
+    "click",
+    handleSaveToCustomBtn(customColorParent, inputHex)
+  );
+  customColorParent.addEventListener('click', handlePresetColorParent)
 }
+
 
 // event handlers
 function handleGenerateRandomColorBtn() {
   let color = generateColorDecimal();
   updateColorCodeToDom(color);
-  const mouseSound = new Audio('./sound/mouse-click.mp3')
-  mouseSound.volume = 0.2
-  mouseSound.play()
+  const mouseSound = new Audio("./sound/mouse-click.mp3");
+  mouseSound.volume = 0.2;
+  mouseSound.play();
 }
 
 function handleInputHex(e) {
@@ -147,21 +156,34 @@ function handleCopyToClipboard() {
       alert("Invalid RGB Color Code");
     }
   }
-  copySound.play()
-  console.log(color);
+  const copySound = new Audio("./sound/copy_sound2.mp3");
+  copySound.play();
 }
 
-function handlePresetColorParent (event){ 
-  const child = event.target
-  if(child.className === 'color_box'){
-    window.navigator.clipboard.writeText(child.getAttribute('data_color'))
+function handlePresetColorParent(event) {
+  const child = event.target;
+  if (child.className === "color_box") {
+    window.navigator.clipboard.writeText(child.getAttribute("data_color"));
     if (toastContainer !== null) {
       toastContainer.remove();
       toastContainer = null;
     }
-    generateToastMsg(`${child.getAttribute('data_color')} copied`);
-    copySound.play()
+    generateToastMsg(`${child.getAttribute("data_color")} copied`);
+    const copySound = new Audio("./sound/copy_sound2.mp3");
+    copySound.play();
   }
+}
+
+function handleSaveToCustomBtn(customColorParent, inputHex) {
+  return function () {
+    customColors.push(`#${inputHex.value}`);
+    removeChildren(customColorParent);
+    displayColorBoxes(customColorParent, customColors);
+    const mouseSound = new Audio("./sound/mouse-click.mp3");
+    mouseSound.volume = 0.2
+    mouseSound.play();
+  };
+  
 }
 
 // DOM functions
@@ -248,6 +270,18 @@ function displayColorBoxes(parent, colors) {
     const colorBox = generateColorBox(color);
     parent.appendChild(colorBox);
   });
+}
+
+/**
+ * remove all child from parent
+ * @param {object} parent
+ */
+function removeChildren(parent) {
+  let child = parent.lastElementChild;
+  while (child) {
+    parent.removeChild(child);
+    child = parent.lastElementChild;
+  }
 }
 
 // utils

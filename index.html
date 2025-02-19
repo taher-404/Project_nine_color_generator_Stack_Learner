@@ -23,7 +23,11 @@
           <section class="section">
             <section class="section_header">
                 <h3 class="section_title">Change & Copy Color</h3>
-                <button class="section_header_action" id="copy_to_clipboard">Copy To Clipboard</button>
+                <div class="section_header_action_group">
+                    <button class="section_header_action" id="save_to_custom">Save</button>
+                    <button class="section_header_action" id="copy_to_clipboard">Copy</button>
+                </div>
+                
             </section>
             <div class="divider"></div>
             <div class="select_copy_mode">
@@ -67,7 +71,7 @@
                 </div>
 
                 <div class="rgb_input_group">
-                    <label for="input_rgb">RGB</label>
+                    <label for="input_rgb" class="lead">RGB</label>
                     <input 
                         
                         placeholder="rgb(221, 222, 238)"
@@ -137,7 +141,18 @@
             </div>
             <div class="divider"></div>
             <div class="preset_colors" id="preset_colors">
-                
+                   
+            </div>
+           </section>
+
+          <!-- custom color preset -->
+           <section class="section">
+            <div class="section_header">
+                <h3 class="section_title">Custom Colors</h3>
+            </div>
+            <div class="divider"></div>
+            <div class="custom_colors" id="custom_colors">
+                   
             </div>
            </section>
     </div>
