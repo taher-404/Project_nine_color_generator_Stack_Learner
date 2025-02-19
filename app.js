@@ -133,7 +133,7 @@ function handleCopyToClipboard() {
   if (mode === "hex") {
     color = document.getElementById("input_hex").value;
     if (color && isHexValid(color)) {
-      window.navigator.clipboard.writeText(color);
+      window.navigator.clipboard.writeText(`#${color}`);
       generateToastMsg(`#${color} copied`);
     } else {
       alert("Invalid Color Code");
@@ -151,10 +151,15 @@ function handleCopyToClipboard() {
   console.log(color);
 }
 
-function handlePresetColorParent (event){
+function handlePresetColorParent (event){ 
   const child = event.target
   if(child.className === 'color_box'){
     window.navigator.clipboard.writeText(child.getAttribute('data_color'))
+    if (toastContainer !== null) {
+      toastContainer.remove();
+      toastContainer = null;
+    }
+    generateToastMsg(`${child.getAttribute('data_color')} copied`);
     copySound.play()
   }
 }
