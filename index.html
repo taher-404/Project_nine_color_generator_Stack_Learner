@@ -155,5 +155,68 @@
                    
             </div>
            </section>
+
+           <section class="section">
+            <div class="section_header">
+                <h3 class="section_title">Background Preferences</h3>
+            </div>
+            <div class="divider"></div>
+            <div class="background_preferences">
+                <div class="background_left_panel">
+                    <p class="lead">Background Preview</p>
+                    <div class="background_img" id="bg_preview"></div>
+                    <div class="background_control">
+                        <input type="file" class="file_input" id="bg_file_input" accept="image/*">
+                        <button class="background_control_btn" id="bg_file_delete_btn">Remove</button>
+                        <button class="background_control_btn" id="bg_file_input_btn">Upload</button>
+                    </div>
+                </div>
+                <div class="right_panel">
+                    <div id="bg_controller">
+                        <div class="select_group">
+                        <label class="lead" for="bg_size"> Background Size</label>
+                        <select class="text_input" name="bg_size" id="bg_size">
+                            <option value="auto">Auto</option>
+                            <option value="id">Inherit</option>
+                            <option value="contain">contain</option>
+                            <option value="cover">cover</option>
+                        </select>
+                        </div>
+                        <div class="select_group">
+                        <label class="lead" for="bg_size"> Background Repeat</label>
+                        <select class="text_input" name="bg_size" id="bg_repeat">
+                            <option value="repeat">Repeat</option>
+                            <option value="no-repeat">No Repeat</option>
+                        </select>
+                        </div>
+                        <div class="select_group">
+                            <label class="lead" for="bg_size"> Background Position</label>
+                                <select class="text_input" name="bg_size" id="bg_position">
+                                    <option value="left top">Left Top</option>
+                                    <option value="left center">Left Center</option>
+                                    <option value="left bottom">Left Bottom</option>
+                                    <option value="right top">Right Top</option>
+                                    <option value="right center">Right Center</option>
+                                    <option value="right bottom">Right Bottom</option>
+                                    <option value="center top">Center Top</option>
+                                    <option value="center center">Center Center</option>
+                                    <option value="center bottom">Center Bottom</option>
+                                </select>
+                        </div>
+                        <div class="select_group">
+                            <label class="lead" for="bg_size"> Background Attachment</label>
+                            <select class="text_input" name="bg_size" id="bg_attachment">
+                                <option value="initial">Initial</option>
+                                <option value="Inherit">Inherit</option>
+                                <option value="Local">Local</option>
+                                <option value="fixed">Fixed</option>
+                                <option value="scroll">Scroll</option>
+                            </select>
+                        </div>
+                </div>
+            </div>
+   
+            </div>
+           </section>
     </div>
 </html> 

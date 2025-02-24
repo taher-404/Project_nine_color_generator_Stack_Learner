@@ -12,14 +12,16 @@ body {
   font-size: 16px;
   background-color: #dddeee;
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   text-align: center;
 }
 
 .container {
   width: 600px;
   margin: 2rem auto;
-  padding: 2rem;
+  padding-inline: 2rem;
+  padding-top: 1rem;
+  padding-bottom: 0.1rem;
   background-color: #fff;
   border-radius: 0.25rem;
   box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1);
@@ -35,7 +37,7 @@ body {
   justify-content: space-between;
 }
 
-.section_header_action_group{
+.section_header_action_group {
   display: flex;
   gap: 2rem;
 }
@@ -121,11 +123,10 @@ body {
   border-radius: 0.15rem;
   padding: 0.5rem 1rem;
   margin-top: 0.25rem;
-
 }
 
-.text_input:focus{
-border: 1px solid #ff6733;
+.text_input:focus {
+  border: 1px solid #ff6733;
 }
 
 /* *color slider */
@@ -157,7 +158,7 @@ border: 1px solid #ff6733;
   margin-top: 1rem;
 }
 
-.lead{
+.lead {
   font-weight: 600;
   font-size: 0.9rem;
   display: flex;
@@ -165,7 +166,7 @@ border: 1px solid #ff6733;
   user-select: none;
 }
 
-label{
+label {
   user-select: none;
 }
 
@@ -215,7 +216,7 @@ label{
 
 /* color Boxes */
 .preset_colors,
-.custom_colors{
+.custom_colors {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
@@ -223,7 +224,7 @@ label{
   padding: 1rem 0;
 }
 
-.color_box{
+.color_box {
   width: 75px;
   height: 30px;
   border-radius: 0.15rem;
@@ -231,7 +232,55 @@ label{
   transition: all 0.2s;
 }
 
-.color_box:hover{
+.color_box:hover {
   opacity: 0.9;
   box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2);
+}
+
+/* background_preferences */
+.background_preferences {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.background_left_panel {
+  padding: 1rem;
+}
+
+.background_img {
+  width: 100%;
+  padding-top: 56.25%;
+  border-radius: 0.25rem;
+  background-color: #dddeee;
+  margin-top: 0.5rem;
+  background-repeat: no-repeat !important;
+  background-size: 100% 100% !important;
+  background-position: bottom !important;
+}
+
+.background_control {
+  margin-top: 1rem;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.file_input {
+  display: none;
+}
+
+.background_control_btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.right_panel {
+  padding: 1rem;
+  width: 100%;
+}
+
+.select_group {
+  margin-bottom: 1rem;
 }
